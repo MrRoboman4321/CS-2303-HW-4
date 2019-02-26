@@ -1,0 +1,97 @@
+This program involves a simulation of a 
+->grid<-
+ of n-by-n
+->squares<-
+, some of which may be occupied by 
+->organisms<-
+. There are two kinds of organisms — 
+->doodlebugs<-
+(the predators) and 
+->ants<-
+ (the prey). Only one organism may occupy a cell at a 
+->time<-. 
+Time is simulated in 
+->steps<-
+. Each organism attempts to perform some action every step. No action may cause an organism to move off the edges of 
+the grid. 
+Ants
+ behave as follows:
+
+=>Move<=.
+ For every step, each ant 
+ =>enumerates<=
+  its 
+  ->adjacent cells<-
+   — 
+up, down, left, or right
+ — and randomly selects an 
+ ->unoccupied one<-
+  that is on the grid (Note: For this assignment, a cell has a maximum of four 
+neighbors; no diagonal moves are allowed). If all adjacent cells are 
+occupied or off the edges of the grid, the ant does not move but rather 
+remains in its current location. 
+
+=>Breed<=.
+ If an ant survives for at least three time steps, at the end of 
+the third time step (i.e., after moving) the ant gives birth to a new 
+ant in an adjacent cell (i.e., up, down, left, or right). If more than 
+one 
+->empty cell<-
+ is available, it 
+ =>chooses one at random<=
+ . If no empty cell 
+is available, no birth occurs (but the ant is free to try breeding again 
+on the next time step).
+
+ Once an offspring is produced, an ant cannot 
+produce another offspring until it has survived three additional steps.
+
+->Doodlebugs<-
+ behave as follows:
+
+=>Move.<=
+ For every time step, each doodlebug moves to an adjacent cell 
+containing an ant and 
+=>eats that ant<=
+. If more than one adjacent cell contains an ant, one is 
+=>chosen at random<=
+. The ant that was eaten is 
+removed from the grid. If no adjacent cell (i.e., up, down, left, or 
+right) contains an ant, the doodlebug moves according to the same rules 
+as ants. Note that a doodlebug cannot eat another doodlebug.
+
+=>Starvation.<=
+ If a doodlebug has not eaten an ant within three time steps, 
+at the end of the third time step, it 
+=>dies of starvation<=
+ and is removed from the grid.
+
+=>Breed<=
+ If a doodlebug survives for at least eight time steps, at the end 
+of the eighth time step it 
+=>spawns<=
+ off a new doodlebug in the same manner as an ant. 
+ If no adjacent cell is empty, no breeding occurs. Once an 
+offspring is produced, a doodlebug cannot produce another offspring 
+until it has survived eight additional steps. Starvation takes 
+precedence over breeding; that is, a starving doodlebug cannot breed.
+During each time step, the doodlebugs act before the ants.
+ That is, a doodlebug may eat an ant that was about to move and possibly to breed;
+  as a result, that ant is dead and can no longer do either.
+Remember: If an organism (i.e., an ant or a doodlebug) is eligible to breed 
+but prevented from doing so by virtue of no empty adjacent cells, it remains 
+eligible to breed on the next step.
+Note: When a doodlebug looks at its neighbors (organisms in 
+adjacent cells), 
+it needs to be able to tell if each one is an ant or not, so it knows whether 
+it can eat that neighbor. It is considered poor design to explicitly detect 
+the C++ type of an object (i.e., its class) for several reasons: that would 
+make it harder to extend the program later, and it depends on how C++ works 
+rather than on the system being simulated. A better way would be to have a 
+method called something like 
+=>isPrey()<=
+. When you call this method on an ant, 
+it would return true; when you call it on a doodlebug, it would return false. 
+This could be implemented either by overriding the method in each subclass, or 
+by having a Boolean inside each object, initialized appropriately by each 
+constructor.
