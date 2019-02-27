@@ -23,7 +23,7 @@ public:
 
 	bool moveOrganism(Organism *g, int r, int c);
 
-	void printGird();
+	void printGrid();
 
 	virtual ~Grid();
 };
