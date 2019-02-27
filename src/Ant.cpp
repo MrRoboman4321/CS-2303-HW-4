@@ -13,11 +13,12 @@ Ant::Ant()
 {
 
 }
-Ant::Ant(int r, int c)
+Ant::Ant(int r, int c, Grid* grid)
 :Organism(true)
 {
 	row = r;
 	col = c;
+	myGrid = grid;
 }
 
 bool Ant::move()
@@ -100,6 +101,7 @@ bool Ant::breed()
 			}
 			Ant* babyAnt = new Ant(newAntPos.r, newAntPos.c, myGrid);
 			status = myGrid->setCellOccupant(newAntPos.r, newAntPos.c, babyAnt);
+			//TODO: revisit once it is figured out how running sim
 			if(status){
 				row = newAntPos.r;
 				col = newAntPos.c;
@@ -133,6 +135,9 @@ Ant::Pos Ant::gridPosGivenMoveOption(Organism::direction o) {
 	return postion;
 }
 
+bool Ant::isPrey() {
+	return true;
+}
 
 Ant::~Ant() {
 	// TODO Auto-generated destructor stub

@@ -27,6 +27,19 @@ bool Doodlebug::eat()
 	bool status = true;
 	return status;
 }
+
+bool Doodlebug::isStarving() {
+	if(stepsSinceLastFood > 3){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+bool Doodlebug::isPrey() {
+	return false;
+}
+
 Doodlebug::~Doodlebug() {
 	// TODO Auto-generated destructor stub
 }

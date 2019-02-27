@@ -23,7 +23,7 @@ private:
 public:
 	Ant();
 	Ant(int r, int c, Grid* grid);
-
+	bool isPrey();
 	bool move();
 	bool breed();
 
