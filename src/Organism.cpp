@@ -29,3 +29,11 @@ Organism::~Organism() {
 	// TODO Auto-generated destructor stub
 }
 
+void Organism::clearNeighbors() {
+	for (int i = 0; i < 4; ++i) {//cleans the moveOptions array
+		neighbors[i] = 0;
+	}
+}
+int Organism::findNeighbors() {
+
+}
