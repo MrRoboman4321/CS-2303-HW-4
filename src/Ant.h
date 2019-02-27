@@ -14,18 +14,18 @@
 
 class Ant: public Organism {
 private:
-
+	Grid* myGrid;
 	struct Pos{
 		int r;
 		int c;
 	};
-	Pos gridPosGivenMoveOption(moveOption o);
+	Pos gridPosGivenMoveOption(direction o);
 public:
 	Ant();
-	Ant(int r, int c);
+	Ant(int r, int c, Grid* grid);
 
-	bool move(Grid* myGrid);
-	bool breed(Grid* myGrid);
+	bool move();
+	bool breed();
 
 	 ~Ant();
 };

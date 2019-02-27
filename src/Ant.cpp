@@ -20,12 +20,12 @@ Ant::Ant(int r, int c)
 	col = c;
 }
 
-bool Ant::move(Grid* myGrid)
+bool Ant::move()
 {
 	bool status = true;
 	clearNeighbors();
 	int optionCount = findNeighbors();
-	moveOption options[optionCount];
+	direction options[optionCount];
 	for (int i = 0, written = 0; i < 4; ++i) {//writes to which grid spaces are move options
 		if(neighbors[i] == 0){
 			if(i == 0){
@@ -66,16 +66,55 @@ bool Ant::move(Grid* myGrid)
 	return status;
 }
 
-bool Ant::breed(Grid* myGrid)
+bool Ant::breed()
 {
 	bool status = true;
 	if(stepsSinceLastBreed >= 3){
-		
+		clearNeighbors();
+		int optionCount = findNeighbors();
+		direction birthOptions[optionCount];
+		for (int i = 0, written = 0; i < 4; ++i) {//writes to which grid spaces are move options
+			if(neighbors[i] == 0){
+				if(i == 0){
+					birthOptions[written] = up;
+					written++;
+				} else if(i == 1){
+					birthOptions[written] = right;
+					written++;
+				} else if(i == 2){
+					birthOptions[written] = down;
+					written++;
+				} else if(i == 3){
+					birthOptions[written] = left;
+					written++;
+				}
+			}
+		}
+		if(optionCount != 0){
+			Pos newAntPos;
+			if(optionCount > 1){//if more than one option will randomly select an option
+				newAntPos = gridPosGivenMoveOption(birthOptions[rand()%optionCount]);
+			}else{//there is only one move option so the new ant will be put there
+				newAntPos = gridPosGivenMoveOption(birthOptions[0]);
+
+			}
+			Ant* babyAnt = new Ant(newAntPos.r, newAntPos.c, myGrid);
+			status = myGrid->setCellOccupant(newAntPos.r, newAntPos.c, babyAnt);
+			if(status){
+				row = newAntPos.r;
+				col = newAntPos.c;
+			}
+		}else{
+			status = false;//no move options, return false
+		}
+	}
+	if(status){
+		stepsSinceLastBreed = 0;
 	}
 	return status;
 }
 
-Ant::Pos Ant::gridPosGivenMoveOption(Organism::moveOption o) {
+Ant::Pos Ant::gridPosGivenMoveOption(Organism::direction o) {
 	Pos postion;
 
 	if(o == up){

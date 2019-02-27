@@ -15,19 +15,19 @@
 class Organism {
 protected:
 
-	enum moveOption{
+	enum direction{
 		up,
 		right,
 		down,
 		left
 	};
-    int stepsSinceLastBreed = 0;
-    int row = 0;
-    int col = 0;
+	int stepsSinceLastBreed = 0;
+	int row = 0;
+	int col = 0;
 
 	int neighbors[4];
-	virtual void clearNeighbors();
-	 int findNeighbors();
+	void clearNeighbors();
+	int findNeighbors();
 
 public:
 	Organism();
@@ -39,8 +39,7 @@ public:
 	virtual bool breed() = 0;
 
 	void setAmAnt(bool b);
-	virtual void clearNeighbors();
-	virtual int findNeighbors();
+
 	virtual ~Organism();
 };
 
