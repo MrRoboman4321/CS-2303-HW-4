@@ -11,15 +11,13 @@
 #include "Organism.h"
 
 class Ant: public Organism {
-private:
-	int row = 0;
-	int col = 0;
-
 public:
 	Ant();
-	Ant(int r=0, int c = 0);
+	Ant(int r = 0, int c = 0);
+
 	bool move();
 	bool breed();
+
 	 ~Ant();
 };
 

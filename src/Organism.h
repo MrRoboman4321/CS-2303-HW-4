@@ -9,13 +9,22 @@
 #define ORGANISM_H_
 
 class Organism {
+private:
+    int stepsSinceLastBreed = 0;
+    int row = 0;
+    int col = 0;
+
 public:
 	Organism();
 	Organism(bool b);
+
 	bool isPrey();
-	virtual bool move()=0;
-	virtual bool breed()=0;
+
+	virtual bool move() = 0;
+	virtual bool breed() = 0;
+
 	void setAmAnt(bool b);
+
 	virtual ~Organism();
 };
 

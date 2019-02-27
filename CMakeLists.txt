@@ -9,8 +9,6 @@ add_executable(CS_2303_HW_4
         src/Ant.cpp
         src/Ant.h
         src/AntsAndDoodles.cpp
-        src/Cell.cpp
-        src/Cell.h
         src/Doodlebug.cpp
         src/Doodlebug.h
         src/Grid.cpp
