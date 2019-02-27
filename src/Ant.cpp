@@ -30,16 +30,16 @@ bool Ant::move()
 	for (int i = 0, written = 0; i < 4; ++i) {//writes to which grid spaces are move options
 		if(neighbors[i] == 0){
 			if(i == 0){
-				options[written] = up;
+				options[written] = Up;
 				written++;
 			} else if(i == 1){
-				options[written] = right;
+				options[written] = Right;
 				written++;
 			} else if(i == 2){
-				options[written] = down;
+				options[written] = Down;
 				written++;
 			} else if(i == 3){
-				options[written] = left;
+				options[written] = Left;
 				written++;
 			}
 		}
@@ -77,16 +77,16 @@ bool Ant::breed()
 		for (int i = 0, written = 0; i < 4; ++i) {//writes to which grid spaces are move options
 			if(neighbors[i] == 0){
 				if(i == 0){
-					birthOptions[written] = up;
+					birthOptions[written] = Up;
 					written++;
 				} else if(i == 1){
-					birthOptions[written] = right;
+					birthOptions[written] = Right;
 					written++;
 				} else if(i == 2){
-					birthOptions[written] = down;
+					birthOptions[written] = Down;
 					written++;
 				} else if(i == 3){
-					birthOptions[written] = left;
+					birthOptions[written] = Left;
 					written++;
 				}
 			}
@@ -119,16 +119,16 @@ bool Ant::breed()
 Ant::Pos Ant::gridPosGivenMoveOption(Organism::direction o) {
 	Pos postion;
 
-	if(o == up){
+	if(o == Up){
 		postion.r = row - 1;
 		postion.c = col;
-	}else if(o == right){
+	}else if(o == Right){
 		postion.r = row;
 		postion.c = col + 1;
-	}else if(o == down){
+	}else if(o == Down){
 		postion.r = row + 1;
 		postion.c = col;
-	}else if(o == left){
+	}else if(o == Left){
 		postion.r = row;
 		postion.c = col - 1;
 	}

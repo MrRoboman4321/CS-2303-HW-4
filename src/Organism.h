@@ -16,10 +16,10 @@ class Organism {
 protected:
 
 	enum direction{
-		up,
-		right,
-		down,
-		left
+		Up,
+		Right,
+		Down,
+		Left
 	};
 	int stepsSinceLastBreed = 0;
 	int row = 0;
