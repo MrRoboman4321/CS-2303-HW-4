@@ -52,7 +52,8 @@ bool Ant::move()
 			nextPostion = gridPosGivenMoveOption(options[0]);
 
 		}
-		status = myGrid->moveOrganism(this, nextPostion.r, nextPostion.c);
+		status = myGrid->setCellOccupant(nextPostion.r, nextPostion.c, this) &&
+				myGrid->setCellOccupant(this->row, this->col, 0);
 		if(status){
 			row = nextPostion.r;
 			col = nextPostion.c;
