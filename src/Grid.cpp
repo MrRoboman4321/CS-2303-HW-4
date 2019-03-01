@@ -150,7 +150,7 @@ Grid::~Grid() {
 //				delete grid[i][j];
 //			}
 //		}
-//		//free(grid[i]);
+//		free(grid[i]);
 //	}
 
 	for(Ant *ant : ants) {
