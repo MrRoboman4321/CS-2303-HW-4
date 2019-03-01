@@ -47,9 +47,9 @@ public:
 	Pos whereToMove();
 
 	virtual bool move() = 0;
-	virtual bool breed();
+	virtual bool breed() = 0;
 
-	virtual void tick();
+	virtual void tick() = 0;
 
 	void setAmAnt(bool b);
 

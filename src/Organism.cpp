@@ -134,7 +134,7 @@ void Organism::clearNeighbors() {
  * Destructor for an organism
  */
 Organism::~Organism() {
-	free(neighbors);
+
 }
 
 /**

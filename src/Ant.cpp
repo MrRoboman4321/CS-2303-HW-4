@@ -157,7 +157,7 @@ int Ant::findNeighbors() {
  * destructor for the ant
  */
 Ant::~Ant() {
-	myGrid = nullptr;//mygrid points to the master grid, do not want to free!!!!!
+	//myGrid = nullptr;//mygrid points to the master grid, do not want to free!!!!!
     //TODO: Free all children spawned from breeding
 }
 

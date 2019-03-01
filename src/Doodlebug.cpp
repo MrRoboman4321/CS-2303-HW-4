@@ -225,7 +225,7 @@ bool Doodlebug::isPrey() {
  * destructor for doodlebug
  */
 Doodlebug::~Doodlebug() {
-	myGrid = 0;//mygrid points to the master grid, do not want to free!!!!!
+	//myGrid = 0;//mygrid points to the master grid, do not want to free!!!!!
 
 
 }

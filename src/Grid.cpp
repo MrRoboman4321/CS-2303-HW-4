@@ -33,7 +33,7 @@ Grid::Grid(int n) {
  * @return whether the cell was empty. If false, no change to the grid was made.
  */
 bool Grid::addOrg(int r, int c, Organism *org) {
-    if(grid[r][c] == nullptr) {
+    if(grid[r][c] != nullptr) {
         return false;
     }
 
@@ -144,14 +144,14 @@ void Grid::printGrid() {
  * Destructs the grid. Frees the 2d array, then deletes all organisms stored.
  */
 Grid::~Grid() {
-	for(int i = 0; i < side_length; i++) {
-		for(int j = 0; j < side_length; j++) {
-			if(grid[i][j] != nullptr) {
-				delete grid[i][j];
-			}
-		}
-		free(grid[i]);
-	}
+//	for(int i = 0; i < side_length; i++) {
+//		for(int j = 0; j < side_length; j++) {
+//			if(grid[i][j] != nullptr) {
+//				delete grid[i][j];
+//			}
+//		}
+//		//free(grid[i]);
+//	}
 
 	for(Ant *ant : ants) {
 		delete ant;
