@@ -79,6 +79,7 @@ bool Doodlebug::move()
 		nextPos.c = prey[preyChoice]->getCol();
 		nextPos.r = prey[preyChoice]->getRow();
 		bool hasEaten = eat(prey[1], myGrid);
+		//updates steosSinceLastFood
 		if(hasEaten){
 			stepsSinceLastFood = 0;
 		}else{
@@ -86,14 +87,14 @@ bool Doodlebug::move()
 		}
 
 
-	}else{
+	}else{//falls back on organism whereToMOve
 		nextPos = Organism::whereToMove();
 	}
-
+	//moves the doodlebug if it is different positions
 	if(nextPos.r != row || nextPos.c != col){
 		status = myGrid->moveOrganism(nextPos.r, nextPos.c, this);
 	}
-
+	//updates position
 	if(status){
 		row = nextPos.r;
 		col = nextPos.c;
@@ -143,13 +144,11 @@ bool Doodlebug::breed()
 				newDoodlebugPos = gridPosGivenMoveOption(birthOptions[0]);
 
 			}
+			//birth the ant
 			Doodlebug* babyDoodlebug = new Doodlebug(newDoodlebugPos.r, newDoodlebugPos.c, myGrid);
 			status = myGrid->addOrg(newDoodlebugPos.r, newDoodlebugPos.c, babyDoodlebug, babyDoodlebug->isPrey());
 
-			if(status){
-				row = newDoodlebugPos.r;
-				col = newDoodlebugPos.c;
-			}
+
 		}else{
 			status = false;//no move options, return false
 		}
