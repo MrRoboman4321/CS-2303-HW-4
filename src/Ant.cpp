@@ -105,7 +105,7 @@ bool Ant::breed()
 			}
 			//birth the ant
 			Ant* babyAnt = new Ant(newAntPos.r, newAntPos.c, myGrid);
-			status = myGrid->addOrg(newAntPos.r, newAntPos.c, babyAnt, babyAnt->isPrey());
+			status = myGrid->addOrg(newAntPos.r, newAntPos.c, babyAnt);
 
 		}else{
 			status = false;//no move options, return false

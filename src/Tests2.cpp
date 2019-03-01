@@ -108,7 +108,7 @@ bool Tests2::antsBreedTest()
 
 bool Tests2::doodleMoveTest()
 {
-	
+
 	std::cout << "Running the move doodlebugs test" << std::endl;
 	Grid myGrid = Grid(6);
 	Doodlebug* doodlebug = new Doodlebug(3,3,&myGrid);
@@ -157,7 +157,7 @@ bool Tests2::doodleEatTest()
 	bug->tick();
 	bug->tick();
 	bug->tick();
-	result = !bug.isStarving();
+	result = !bug->isStarving();
 
 	return result;
 }
