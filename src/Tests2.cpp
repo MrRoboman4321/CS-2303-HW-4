@@ -39,7 +39,12 @@ bool Tests2::doTests()
 	bool ok9 = doodleEatTest();
 	//see whether they die
 	bool ok10 = doodleDietest();
-	results = ok1 && ok2 && ok3 && ok4 && ok5 && ok6 && ok7 && ok8 && ok9 && ok10;
+
+	bool ok11 = gridTest();
+	bool ok12 = gridAddTest();
+	bool ok13 = gridMoveTest();
+	bool ok14 = gridRemoveTest();
+	results = ok1 && ok2 && ok3 && ok4 && ok5 && ok6 && ok7 && ok8 && ok9 && ok10 && ok11 && ok12 && ok13 && ok14;
 	return results;
 }
 bool Tests2::gridTest()
@@ -148,6 +153,50 @@ bool Tests2::doodleDietest()
 {
 	bool result = true;
 	std::cout << "Running the doodlebug dies test" << std::endl;
+	return result;
+}
+
+bool Tests2::gridAddTest() {
+	Grid *grid = new Grid();
+	Ant *ant = new Ant();
+
+	grid->addOrg(5, 5, ant);
+
+	bool result = grid->getCellOccupant(5, 5) == ant;
+
+	delete grid;
+	delete ant;
+
+	return result;
+}
+
+bool Tests2::gridMoveTest() {
+	Grid *grid = new Grid();
+	Ant *ant = new Ant();
+
+	grid->addOrg(5, 5, ant);
+	grid->moveOrganism(10, 10, ant);
+
+	bool result = grid->getCellOccupant(10, 10) == ant;
+
+	delete grid;
+	delete ant;
+
+	return result;
+}
+
+bool Tests2::gridRemoveTest() {
+	Grid *grid = new Grid();
+	Ant *ant = new Ant();
+
+	grid->addOrg(5, 5, ant);
+	grid->removeOrg(5, 5);
+
+	bool result = grid->getCellOccupant(5, 5) == nullptr;
+
+	delete grid;
+	delete ant;
+
 	return result;
 }
 

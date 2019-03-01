@@ -23,6 +23,9 @@ public:
 	bool doodleEatTest();
 	bool doodleDietest();
 
+	bool gridAddTest();
+	bool gridMoveTest();
+	bool gridRemoveTest();
 
 	virtual ~Tests2();
 };
