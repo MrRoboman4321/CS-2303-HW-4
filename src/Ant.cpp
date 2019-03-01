@@ -141,7 +141,7 @@ bool Ant::isPrey() {
 }
 
 Ant::~Ant() {
-	// TODO Auto-generated destructor stub
+	myGrid = 0;//mygrid points to the master grid, do not want to free!!!!!
 
 }
 
