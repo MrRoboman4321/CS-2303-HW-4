@@ -103,12 +103,10 @@ bool Ant::breed()
 				newAntPos = gridPosGivenMoveOption(birthOptions[0]);
 
 			}
+			//birth the ant
 			Ant* babyAnt = new Ant(newAntPos.r, newAntPos.c, myGrid);
-			status = myGrid->addOrg(newAntPos.r, newAntPos.c, babyAnt);
-			if(status){
-				row = newAntPos.r;
-				col = newAntPos.c;
-			}
+			status = myGrid->addOrg(newAntPos.r, newAntPos.c, babyAnt, babyAnt->isPrey());
+
 		}else{
 			status = false;//no move options, return false
 		}
