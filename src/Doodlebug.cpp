@@ -25,13 +25,15 @@ Doodlebug::Doodlebug(int r, int c, Grid* grid)
 void Doodlebug::tick() {//TODO do we want to put this here?
 	move();
 	if (isStarving()){
-		myGrid->removeOrg(row, col, this);
+		starve();
 	}
 	breed();
 
 }
 
-
+void Doodlebug::starve() {
+	myGrid->removeOrg(row, col, this);
+}
 
 bool Doodlebug::move()
 {
