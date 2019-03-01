@@ -5,28 +5,46 @@
  *      Author: student
  */
 
+#include <string>
 #include "Production.h"
 
-int timestepsLeft=100;
-
-
 Production::Production(int argc, char* argv[]) {
-	// TODO Auto-generated constructor stub
-	int timestepsLeft = 100; //initialize available timesteps
+	switch(argc) {
+		case 7:
+			pause      = std::stoi(argv[6]);
+		case 6:
+			seed       = std::stoi(argv[5]);
+		case 5:
+			time_steps = std::stoi(argv[4]);
+		case 4:
+			ants       = std::stoi(argv[3]);
+		case 3:
+			doodlebugs = std::stoi(argv[2]);
+		case 2:
+		default:
+			gridSize   = std::stoi(argv[1]);
+	}
+
+	grid = new Grid(gridSize);
 }
 
 bool Production::runProduction()
 {
+	int i = 0;
+
 	bool result = true;
-	while(timestepsLeft-- > 0)
+	while(i < time_steps)
 	{
-		//dbs.step;
-		//ants.step;
+		grid->tick();
+		if(pause > 0 && i % pause == 0) {
+			grid->printGrid();
+		}
 	}
+
 	return result;
 }
 
 Production::~Production() {
-	// TODO Auto-generated destructor stub
+	delete grid;
 }
 

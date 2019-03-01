@@ -9,8 +9,9 @@
 #define ANT_H_
 
 #include "Grid.h"
-
 #include "Organism.h"
+
+class Grid;
 
 class Ant: public Organism {
 private:

@@ -104,16 +104,16 @@ Organism::Pos Organism::whereToMove() {
 Organism::Pos Organism::gridPosGivenMoveOption(Organism::direction o) {
 	Pos postion;
 
-	if(o == Up){//the space above you
+	if(o == Up) {//the space above you
 		postion.r = row - 1;
 		postion.c = col;
-	}else if(o == Right){// the space to your right
+	} else if(o == Right) {// the space to your right
 		postion.r = row;
 		postion.c = col + 1;
-	}else if(o == Down){// the space below you
+	} else if(o == Down) {// the space below you
 		postion.r = row + 1;
 		postion.c = col;
-	}else if(o == Left){// the space to your left
+	} else {// the space to your left
 		postion.r = row;
 		postion.c = col - 1;
 	}
@@ -126,7 +126,7 @@ Organism::Pos Organism::gridPosGivenMoveOption(Organism::direction o) {
  */
 void Organism::clearNeighbors() {
 	for (int i = 0; i < 4; ++i) {//cleans the moveOptions array
-		neighbors[i] = 0;
+		neighbors[i] = nullptr;
 	}
 }
 
