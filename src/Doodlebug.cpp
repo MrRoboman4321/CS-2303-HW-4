@@ -153,6 +153,6 @@ bool Doodlebug::isPrey() {
 }
 
 Doodlebug::~Doodlebug() {
-	// TODO Auto-generated destructor stub
+	myGrid = 0;
 }
 
