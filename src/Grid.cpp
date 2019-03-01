@@ -11,8 +11,10 @@
 #include <algorithm>
 #include "Grid.h"
 
-int n = 0; //this initial value will be changed when the program is invoked
-
+/**
+ * Constructs the Grid
+ * @param n sidelength of the 2d grid
+ */
 Grid::Grid(int n) {
 	side_length = n;
 
@@ -23,6 +25,13 @@ Grid::Grid(int n) {
     }
 }
 
+/**
+ * Adds a new organism to the grid, as well as the specific pointer lists.
+ * @param r row to add at
+ * @param c col to add at
+ * @param org organism pointer to keep track of
+ * @return whether the cell was empty. If false, no change to the grid was made.
+ */
 bool Grid::addOrg(int r, int c, Organism *org) {
     if(grid[r][c] == nullptr) {
         return false;
@@ -37,6 +46,12 @@ bool Grid::addOrg(int r, int c, Organism *org) {
     }
 }
 
+/**
+ * Removes an organism from the grid and vectors, and deconstructs the organism
+ * @param r row to remove from
+ * @param c col to remove from
+ * @return whether or not there was an organism to erase
+ */
 bool Grid::removeOrg(int r, int c) {
 	if(grid[r][c] == nullptr) {
 		return false;
@@ -47,12 +62,27 @@ bool Grid::removeOrg(int r, int c) {
 	} else {
 		doodlebugs.erase(std::remove(doodlebugs.begin(), doodlebugs.end(), grid[r][c]), doodlebugs.end());
 	}
+
+	delete grid[r][c];
 }
 
+/**
+ * Returns the organism pointed to at grid[r][c]
+ * @param r row to get from
+ * @param c col to get from
+ * @return pointer to the organism. If there was no organism present, nullptr
+ */
 Organism *Grid::getCellOccupant(int r, int c) {
 	return grid[r][c];
 }
 
+/**
+ * Moves an organism from wherever it is to grid[r][c]
+ * @param r row to move to
+ * @param c col to move to
+ * @param o organism to move
+ * @return whether or not the destination is empty.
+ */
 bool Grid::moveOrganism(int r, int c, Organism *o) {
 	//If the spot is already taken, the organism cannot move there
 	if(grid[r][c] == nullptr) {
@@ -76,24 +106,22 @@ bool Grid::moveOrganism(int r, int c, Organism *o) {
 	}
 }
 
+/**
+ * Updates the state of all organisms currently on the board.
+ */
 void Grid::tick() {
-    for(int r = 0; r < side_length; r++) {
-        for(int c = 0; c < side_length; c++) {
-            if(grid[r][c]->isPrey()) {
-                grid[r][c]->tick();
-            }
-        }
+    for(Ant *ant : ants) {
+    	ant->tick();
     }
 
-    for(int r = 0; r < side_length; r++) {
-        for(int c = 0; c < side_length; c++) {
-            if(!grid[r][c]->isPrey()) {
-                grid[r][c]->tick();
-            }
-        }
+    for(Doodlebug *doodlebug : doodlebugs) {
+    	doodlebug->tick();
     }
 }
 
+/**
+ * Outputs the grid in a human readable format
+ */
 void Grid::printGrid() {
 	for(int r = 0; r < side_length; r++) {
 		for(int c = 0; c < side_length; c++) {
@@ -111,6 +139,9 @@ void Grid::printGrid() {
 	}
 }
 
+/**
+ * Destructs the grid. Frees the 2d array, then deletes all organisms stored.
+ */
 Grid::~Grid() {
 	for(int i = 0; i < side_length; i++) {
 		for(int j = 0; j < side_length; j++) {
