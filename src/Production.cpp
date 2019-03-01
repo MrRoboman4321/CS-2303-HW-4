@@ -6,6 +6,7 @@
  */
 
 #include <string>
+#include <time.h>
 #include "Production.h"
 
 Production::Production(int argc, char* argv[]) {
@@ -25,6 +26,11 @@ Production::Production(int argc, char* argv[]) {
 			gridSize   = std::stoi(argv[1]);
 	}
 
+	if(seed == 0) {
+		srand(time(NULL));
+	} else {
+		srand(seed);
+	}
 	grid = new Grid(gridSize);
 }
 
