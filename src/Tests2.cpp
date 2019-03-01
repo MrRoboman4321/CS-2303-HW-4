@@ -50,14 +50,15 @@ bool Tests2::gridTest()
 	bool ok2 = true;
 	std::cout << "Running the grid test" << std::endl;
 	Grid myGrid = Grid(8);
-	if(myGrid.getCellOccupant(2, 3)!=empty)
+	if(myGrid.getCellOccupant(2, 3)!= nullptr)
 	{
 		std::cout << "Cell not initially empty" << std::endl;
 		ok1 = false;
 	}
 	//std::cout << "second grid test" << std::endl;
-	myGrid.setCellOccupant(2, 3, ant);
-	if(myGrid.getCellOccupant(2, 3)!=ant)
+	Ant* ant = new Ant(2,3,&myGrid);
+	myGrid.addOrg(2, 3, ant);
+	if(!myGrid.getCellOccupant(2, 3)->isPrey())
 	{
 		std::cout << "Cell not set to ant" << std::endl;
 		ok2 = false;
