@@ -9,25 +9,48 @@
 #include "Organism.h"
 bool amAnt = false;
 
+/**
+ * Default consturctot
+ */
 Organism::Organism() {
-	// TODO Auto-generated constructor stub
 
 }
+
+/**
+ *	Consturctor for an organism
+ * @param b if the organism is an ant
+ */
 Organism::Organism(bool b) {
 	amAnt = b;
 
 }
+
+/**
+ * ir the Organism is prey
+ * @return
+ */
 bool Organism::isPrey()
 {
 	return amAnt;
 }
+
+/**
+ * sets the value of amAnt
+ * @param b whether or not it is an ant
+ */
 void Organism::setAmAnt(bool b)
 {
 	amAnt = b;
 }
 
+
+/**
+ * detertmains the next place to move if following the default move instuctions
+ * those instuction being, find an empty spot and move to it, if there is more than one
+ * chose randomly
+ * @return the position to move to
+ */
 Organism::Pos Organism::whereToMove() {
-	//TODO: clean up this code
 	bool status = true;
 	clearNeighbors();
 	Pos nextPostion;
@@ -63,7 +86,7 @@ Organism::Pos Organism::whereToMove() {
 	}else{
 		status = false;//no move options, return false
 	}
-	if(!status){
+	if(!status){//if you can't move anywhere, move to where you are
 		nextPostion.r = row;
 		nextPostion.c = col;
 	}
@@ -72,39 +95,60 @@ Organism::Pos Organism::whereToMove() {
 
 }
 
+
+/**
+ * produces a grid position from a move option
+ * @param o the direction that the organism wants to move
+ * @return the Pos stuct which contains the grid postion
+ */
 Organism::Pos Organism::gridPosGivenMoveOption(Organism::direction o) {
 	Pos postion;
 
-	if(o == Up){
+	if(o == Up){//the space above you
 		postion.r = row - 1;
 		postion.c = col;
-	}else if(o == Right){
+	}else if(o == Right){// the space to your right
 		postion.r = row;
 		postion.c = col + 1;
-	}else if(o == Down){
+	}else if(o == Down){// the space below you
 		postion.r = row + 1;
 		postion.c = col;
-	}else if(o == Left){
+	}else if(o == Left){// the space to your left
 		postion.r = row;
 		postion.c = col - 1;
 	}
 	return postion;
 }
 
+
+/**
+ * clears the array of neighbors
+ */
 void Organism::clearNeighbors() {
 	for (int i = 0; i < 4; ++i) {//cleans the moveOptions array
 		neighbors[i] = 0;
 	}
 }
 
+/**
+ * Destructor for an organism
+ */
 Organism::~Organism() {
-	// TODO Auto-generated destructor stub
+	free(neighbors);
 }
 
+/**
+ * getter for row
+ * @return the row that the organism is in
+ */
 int Organism::getRow() const {
 	return row;
 }
 
+/**
+ * getter for col
+ * @return returns the column that the organism is in
+ */
 int Organism::getCol() const {
 	return col;
 }

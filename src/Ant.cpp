@@ -8,12 +8,22 @@
 #include <cstdlib>
 #include "Ant.h"
 
+/**
+ * Default constuctor for ant
+ */
 Ant::Ant()
 :Organism(true)
 {
 	stepsTillBreed = 3;
 
 }
+
+/**
+ * Constuctor that takes in the grid and the grid position of the ant
+ * @param r the row that the ant is in
+ * @param c the column that the ant is in
+ * @param grid the grid where the ant exists
+ */
 Ant::Ant(int r, int c, Grid* grid)
 :Organism(true)
 {
@@ -23,9 +33,24 @@ Ant::Ant(int r, int c, Grid* grid)
 	stepsTillBreed = 3;
 }
 
+/**
+ * Operates the Ant simulation for one tick
+ */
+void Ant::tick() {//TODO do we want to put this here?
+	move();
+
+	breed();
+
+}
+
+
+/**
+ * moves the ant in acordence with the organism whereToMove function
+ * @return true if the ant moved, false otherwise
+ */
 bool Ant::move()
 {
-	bool status = true;
+	bool status = false;
 
 	Organism::Pos nextPostion = Organism::whereToMove();
 	if(nextPostion.r != row || nextPostion.c != col){
@@ -42,9 +67,14 @@ bool Ant::move()
 	return status;
 }
 
+
+/**
+ * if the ant has taken enough steps and there is space around the ant, a new ant will spawn
+ * @return true if a ant has been spawned
+ */
 bool Ant::breed()
 {
-	bool status = true;
+	bool status = false;
 	if(stepsSinceLastBreed >= stepsTillBreed){
 		clearNeighbors();
 		int optionCount = findNeighbors();
@@ -91,17 +121,25 @@ bool Ant::breed()
 }
 
 
-
+/**
+ * find out if the ant is prey, it is
+ * @return true
+ */
 bool Ant::isPrey() {
 	return true;
 }
 
+
+/**
+ * finds the neighbors and puts pointers to the organisms in the neighbors array
+ * @return the number of non null neighbors
+ */
 int Ant::findNeighbors() {
 	//first element is pointer to what is above, goes around clockwise from there
 	int neighborCount = 0;
 	if(myGrid->getCellOccupant(this->row - 1, this->col) != nullptr){
 			neighborCount++;
-			neighbors[1] = myGrid->getCellOccupant(this->row - 1, this->col);
+			neighbors[0] = myGrid->getCellOccupant(this->row - 1, this->col);
 	}
 	if(myGrid->getCellOccupant(this->row, this->col + 1) != nullptr){
 		neighborCount++;
@@ -109,17 +147,21 @@ int Ant::findNeighbors() {
 	}
 	if(myGrid->getCellOccupant(this->row + 1, this->col) != nullptr){
 		neighborCount++;
-		neighbors[1] = myGrid->getCellOccupant(this->row + 1, this->col);
+		neighbors[2] = myGrid->getCellOccupant(this->row + 1, this->col);
 	}
 	if(myGrid->getCellOccupant(this->row, this->col - 1) != nullptr){
 		neighborCount++;
-		neighbors[1] = myGrid->getCellOccupant(this->row, this->col - 1);
+		neighbors[3] = myGrid->getCellOccupant(this->row, this->col - 1);
 	}
 	return neighborCount;
 }
 
+
+/**
+ * destructor for the ant
+ */
 Ant::~Ant() {
 	myGrid = 0;//mygrid points to the master grid, do not want to free!!!!!
-	free(neighbors);
+
 }
 
