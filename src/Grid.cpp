@@ -64,6 +64,7 @@ bool Grid::removeOrg(int r, int c) {
 	}
 
 	delete grid[r][c];
+	grid[r][c] = nullptr;
 }
 
 /**
