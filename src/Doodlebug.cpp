@@ -9,9 +9,30 @@
 #include "Doodlebug.h"
 
 Doodlebug::Doodlebug() {
-	// TODO Auto-generated constructor stub
+	stepsTillStarve = 3;
+	stepsTillBreed = 8;
+}
+
+Doodlebug::Doodlebug(int r, int c, Grid* grid)
+: Organism(true) {
+	row = r;
+	col = c;
+	myGrid = grid;
+	stepsTillStarve = 3;
+	stepsTillBreed = 8;
+}
+
+void Doodlebug::tick() {//TODO do we want to put this here?
+	move();
+	if (isStarving()){
+		myGrid->removeOrg(row, col, this);
+	}
+	breed();
 
 }
+
+
+
 bool Doodlebug::move()
 {
 	Organism::Pos nextPos;
@@ -46,8 +67,7 @@ bool Doodlebug::move()
 	}
 
 	if(nextPos.r != row || nextPos.c != col){
-		status = myGrid->setCellOccupant(nextPos.r, nextPos.c, this) &&
-		         myGrid->setCellOccupant(row, col, 0);
+		status = myGrid->moveOrganism(nextPos.r, nextPos.c, this);
 	}
 
 	if(status){
@@ -64,7 +84,7 @@ bool Doodlebug::move()
 bool Doodlebug::breed()
 {
 	bool status = true;
-	if(stepsSinceLastBreed >= 3){
+	if(stepsSinceLastBreed >= stepsTillBreed && !isStarving()){
 		clearNeighbors();
 		int optionCount = findNeighbors();
 		direction birthOptions[optionCount];
@@ -118,12 +138,15 @@ bool Doodlebug::eat(Organism* org, Grid* grid)
 }
 
 bool Doodlebug::isStarving() {
-	if(stepsSinceLastFood > 3){
+	if(stepsSinceLastFood > stepsTillStarve){
 		return true;
 	}else{
 		return false;
 	}
 }
+
+
+
 
 bool Doodlebug::isPrey() {
 	return false;

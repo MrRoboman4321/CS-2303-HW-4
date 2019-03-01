@@ -23,6 +23,7 @@ public:
 	bool isPrey();
 	bool move();
 	bool breed();
+	void tick();
 
 	 ~Ant();
 };

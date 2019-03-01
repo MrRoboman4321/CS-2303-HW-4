@@ -11,6 +11,7 @@
 Ant::Ant()
 :Organism(true)
 {
+	stepsTillBreed = 3;
 
 }
 Ant::Ant(int r, int c, Grid* grid)
@@ -19,6 +20,7 @@ Ant::Ant(int r, int c, Grid* grid)
 	row = r;
 	col = c;
 	myGrid = grid;
+	stepsTillBreed = 3;
 }
 
 bool Ant::move()
@@ -27,8 +29,7 @@ bool Ant::move()
 
 	Organism::Pos nextPostion = Organism::whereToMove();
 	if(nextPostion.r != row || nextPostion.c != col){
-		status = myGrid->setCellOccupant(nextPostion.r, nextPostion.c, this) &&
-		         myGrid->setCellOccupant(row, col, 0);
+		status = myGrid->moveOrganism(nextPostion.r, nextPostion.c, this);
 	}
 
 	if(status){
@@ -44,7 +45,7 @@ bool Ant::move()
 bool Ant::breed()
 {
 	bool status = true;
-	if(stepsSinceLastBreed >= 3){
+	if(stepsSinceLastBreed >= stepsTillBreed){
 		clearNeighbors();
 		int optionCount = findNeighbors();
 		direction birthOptions[optionCount];

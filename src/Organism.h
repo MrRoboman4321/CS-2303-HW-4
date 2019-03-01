@@ -52,6 +52,8 @@ public:
 	virtual bool move() = 0;
 	virtual bool breed();
 
+	virtual void tick();
+
 	void setAmAnt(bool b);
 
 	virtual ~Organism();

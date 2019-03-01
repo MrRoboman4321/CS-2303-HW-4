@@ -16,16 +16,21 @@ class Doodlebug: public Organism {
 private:
 	Grid* myGrid;
     int stepsSinceLastFood = 0;
+    int stepsTillStarve = 3;
 
 public:
 	Doodlebug();
 	Doodlebug(int r, int c, Grid* grid);
+
+
 	bool move();
 	bool breed();
 	bool eat(Organism* org, Grid* grid);
 	bool isStarving();
 	bool isPrey();
 	int findNeighbors();
+	void tick();
+	void starve();
 
 	virtual ~Doodlebug();
 };
