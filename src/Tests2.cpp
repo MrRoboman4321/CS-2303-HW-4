@@ -8,6 +8,7 @@
 #include "Tests2.h"
 #include "Grid.h"
 #include "Ant.h"
+#include "Doodlebug.h"
 #include <iostream>
 
 
@@ -66,87 +67,124 @@ bool Tests2::gridTest()
 	result = ok1 && ok2;
 	return result;
 }
-bool Tests2::makeAntsTest()
-{
-	bool result = true;
-	bool ok1 = true;
-	bool ok2 = true;
-	std::cout << "Running the make ants test" << std::endl;
 
-	Grid* myGrid_p = new Grid(9);
-	if(myGrid_p->getCellOccupant(1, 2)!=empty)
-	{
-		std::cout << "Cell 1,2 not initially empty" << std::endl;
-	}
-	myGrid_p->setCellOccupant(1, 2, ant);
-	if(myGrid_p->getCellOccupant(1, 2)!=ant)
-	{
-		std::cout << "Cell not set to ant" << std::endl;
-		ok1 = false;
-	}
-	Ant* a1 = new Ant(3,4, myGrid_p);
-	if(myGrid_p->getCellOccupant(3, 4)!=empty)
-	{
-		std::cout << "Cell 3,4 not initially empty" << std::endl;
-	}
-	myGrid_p->setCellOccupant(3, 4, doodlebug);
-	if(myGrid_p->getCellOccupant(3, 4)!=doodlebug)
-	{
-		std::cout << "Cell not set to doodlebug" << std::endl;
-		ok2 = false;
-	}
-	myGrid_p->setCellOccupant(3, 4, empty);
-	delete a1;
-	delete myGrid_p;
-	result = ok1 && ok2;
-	return result;
-}
 
 bool Tests2::antsMoveTest()
 {
-	bool result = true;
+
 	std::cout << "Running the move ants test" << std::endl;
-	return result;
+	Grid myGrid = Grid(6);
+	Ant* ant = new Ant(3,3,&myGrid);
+	myGrid.addOrg(3,3, ant);
+	ant->tick();
+
+
+	return myGrid.getCellOccupant(3,3) == nullptr;
 }
 bool Tests2::antsBreedTest()
 {
 	bool result = true;
 	std::cout << "Running the breed ants test" << std::endl;
+	Grid myGrid = Grid(6);
+	Ant* ant = new Ant(3,3,&myGrid);
+	myGrid.addOrg(3,3, ant);
+	ant->tick();
+	ant->tick();
+	ant->tick();
+	ant->tick();
+	ant->tick();
+	int antCount = 0;
+	for (int i = 0; i < 6; ++i) {
+		for (int j = 0; j < 6; ++j) {
+			Organism* org = myGrid.getCellOccupant(i,j);
+			if(org != nullptr && org->isPrey()){
+				antCount++;
+			}
+		}
+	}
 	return result;
 }
-bool Tests2::antsDieTest()
-{
-	bool result = true;
-	std::cout << "Running the ants die test" << std::endl;
-	return result;
-}
-bool Tests2::makeDoodlesTest()
-{
-	bool result = true;
-	std::cout << "Running the make doodlebugs test" << std::endl;
-	return result;
-}
+
+
 bool Tests2::doodleMoveTest()
 {
-	bool result = true;
+	
 	std::cout << "Running the move doodlebugs test" << std::endl;
-	return result;
+	Grid myGrid = Grid(6);
+	Doodlebug* doodlebug = new Doodlebug(3,3,&myGrid);
+	myGrid.addOrg(3,3, doodlebug);
+	doodlebug->tick();
+
+
+	return myGrid.getCellOccupant(3,3) == nullptr;
 }
 bool Tests2::doodleBreedTest()
 {
 	bool result = true;
 	std::cout << "Running the breed doodlebugs test" << std::endl;
-	return result;
+	Grid myGrid = Grid(6);
+	for (int i = 0; i < 6; ++i) {
+		for (int j = 0; j < 5; ++j) {
+			myGrid.addOrg(i,j, new Ant(i,j,&myGrid));
+		}
+	}
+	Doodlebug* bug = new Doodlebug(5,5,&myGrid);
+	myGrid.addOrg(5,5, bug);
+	int doodlebugCount = 0;
+	for (int i = 0; i < 6; ++i) {
+		for (int j = 0; j < 6; ++j) {
+			Organism* org = myGrid.getCellOccupant(i,j);
+			if(org != nullptr && !org->isPrey()){
+				doodlebugCount++;
+			}
+		}
+	}
+
+	return doodlebugCount > 1;
 }
 bool Tests2::doodleEatTest()
 {
 	bool result = true;
 	std::cout << "Running the eat ant test" << std::endl;
+	Grid myGrid = Grid(6);
+	for (int i = 0; i < 6; ++i) {
+		for (int j = 0; j < 5; ++j) {
+			myGrid.addOrg(i,j, new Ant(i,j,&myGrid));
+		}
+	}
+	Doodlebug* bug = new Doodlebug(5,5,&myGrid);
+	myGrid.addOrg(5,5, bug);
+	bug->tick();
+	bug->tick();
+	bug->tick();
+	result = !bug.isStarving();
+
 	return result;
 }
 bool Tests2::doodleDietest()
 {
-	bool result = true;
+	bool result;
+	Grid myGrid = Grid(6);
+
+	Doodlebug* bug = new Doodlebug(5,5,&myGrid);
+	myGrid.addOrg(5,5, bug);
+	bug->tick();
+	bug->tick();
+	bug->tick();
+	bug->tick();
+	int isNotDead = 0;
+	for (int i = 0; i < 6; ++i) {
+		for (int j = 0; j < 6; ++j) {
+			if(myGrid.getCellOccupant(i,j) != nullptr){
+				isNotDead++;
+			}
+		}
+	}
+	if(isNotDead > 0){
+		result = false;
+	}else{
+		result = true;
+	}
 	std::cout << "Running the doodlebug dies test" << std::endl;
 	return result;
 }
