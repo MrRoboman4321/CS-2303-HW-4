@@ -147,7 +147,27 @@ bool Doodlebug::isStarving() {
 	}
 }
 
-
+int Doodlebug::findNeighbors() {
+	//first element is pointer to what is above, goes around clockwise from there
+	int neighborCount = 0;
+	if(myGrid->getCellOccupant(this->row - 1, this->col) != nullptr){
+		neighborCount++;
+		neighbors[1] = myGrid->getCellOccupant(this->row - 1, this->col);
+	}
+	if(myGrid->getCellOccupant(this->row, this->col + 1) != nullptr){
+		neighborCount++;
+		neighbors[1] = myGrid->getCellOccupant(this->row, this->col + 1);
+	}
+	if(myGrid->getCellOccupant(this->row + 1, this->col) != nullptr){
+		neighborCount++;
+		neighbors[1] = myGrid->getCellOccupant(this->row + 1, this->col);
+	}
+	if(myGrid->getCellOccupant(this->row, this->col - 1) != nullptr){
+		neighborCount++;
+		neighbors[1] = myGrid->getCellOccupant(this->row, this->col - 1);
+	}
+	return neighborCount;
+}
 
 
 bool Doodlebug::isPrey() {
@@ -156,5 +176,7 @@ bool Doodlebug::isPrey() {
 
 Doodlebug::~Doodlebug() {
 	myGrid = 0;
+	free(neighbors);
+
 }
 

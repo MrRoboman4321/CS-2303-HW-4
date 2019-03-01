@@ -84,7 +84,7 @@ bool Tests2::makeAntsTest()
 		std::cout << "Cell not set to ant" << std::endl;
 		ok1 = false;
 	}
-	Ant* a1 = new Ant(3,4);
+	Ant* a1 = new Ant(3,4, myGrid_p);
 	if(myGrid_p->getCellOccupant(3, 4)!=empty)
 	{
 		std::cout << "Cell 3,4 not initially empty" << std::endl;

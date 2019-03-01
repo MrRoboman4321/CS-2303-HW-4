@@ -97,11 +97,29 @@ bool Ant::isPrey() {
 }
 
 int Ant::findNeighbors() {
-	return 0;
+	//first element is pointer to what is above, goes around clockwise from there
+	int neighborCount = 0;
+	if(myGrid->getCellOccupant(this->row - 1, this->col) != nullptr){
+			neighborCount++;
+			neighbors[1] = myGrid->getCellOccupant(this->row - 1, this->col);
+	}
+	if(myGrid->getCellOccupant(this->row, this->col + 1) != nullptr){
+		neighborCount++;
+		neighbors[1] = myGrid->getCellOccupant(this->row, this->col + 1);
+	}
+	if(myGrid->getCellOccupant(this->row + 1, this->col) != nullptr){
+		neighborCount++;
+		neighbors[1] = myGrid->getCellOccupant(this->row + 1, this->col);
+	}
+	if(myGrid->getCellOccupant(this->row, this->col - 1) != nullptr){
+		neighborCount++;
+		neighbors[1] = myGrid->getCellOccupant(this->row, this->col - 1);
+	}
+	return neighborCount;
 }
 
 Ant::~Ant() {
 	myGrid = 0;//mygrid points to the master grid, do not want to free!!!!!
-
+	free(neighbors);
 }
 

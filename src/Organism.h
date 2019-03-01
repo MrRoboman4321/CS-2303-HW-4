@@ -28,20 +28,17 @@ protected:
 	int stepsSinceLastBreed = 0;
 	int row = 0;
 	int stepsTillBreed;
-public:
-	int getRow() const;
-
-	int getCol() const;
-
-protected:
 	int col = 0;
 
 	Organism* neighbors[4];
 	void clearNeighbors();
 	virtual int findNeighbors() = 0;
 	Pos gridPosGivenMoveOption(direction o);
-
 public:
+	int getRow() const;
+
+	int getCol() const;
+
 	Organism();
 	Organism(bool b);
 
