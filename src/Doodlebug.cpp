@@ -47,7 +47,7 @@ void Doodlebug::tick() {//TODO do we want to put this here?
  */
 void Doodlebug::starve() {
 	if(isStarving()){//if you are starving, tell the grid to remove you from the grid
-		myGrid->removeOrg(row, col, this);
+		myGrid->removeOrg(row, col);
 	}
 }
 
@@ -144,7 +144,7 @@ bool Doodlebug::breed()
 
 			}
 			Doodlebug* babyDoodlebug = new Doodlebug(newDoodlebugPos.r, newDoodlebugPos.c, myGrid);
-			status = myGrid->addOrg(newDoodlebugPos.r, newDoodlebugPos.c, babyDoodlebug, babyDoodlebug->isPrey());
+			status = myGrid->addOrg(newDoodlebugPos.r, newDoodlebugPos.c, babyDoodlebug);
 
 			if(status){
 				row = newDoodlebugPos.r;
@@ -169,7 +169,7 @@ bool Doodlebug::breed()
 bool Doodlebug::eat(Organism* org, Grid* grid)
 {
 	bool status = true;
-	status = grid->removeOrg(org->getRow(), org->getCol(), org);
+	status = grid->removeOrg(org->getRow(), org->getCol());
 	return status;
 }
 

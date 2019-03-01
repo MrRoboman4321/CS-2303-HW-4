@@ -40,12 +40,11 @@ void Ant::tick() {//TODO do we want to put this here?
 	move();
 
 	breed();
-
 }
 
 
 /**
- * moves the ant in acordence with the organism whereToMove function
+ * moves the ant in accordance with the organism whereToMove function
  * @return true if the ant moved, false otherwise
  */
 bool Ant::move()
@@ -80,7 +79,7 @@ bool Ant::breed()
 		int optionCount = findNeighbors();
 		direction birthOptions[optionCount];
 		for (int i = 0, written = 0; i < 4; ++i) {//writes to which grid spaces are move options
-			if(neighbors[i] == 0){
+			if(neighbors[i] == nullptr){
 				if(i == 0){
 					birthOptions[written] = Up;
 					written++;
@@ -105,7 +104,7 @@ bool Ant::breed()
 
 			}
 			Ant* babyAnt = new Ant(newAntPos.r, newAntPos.c, myGrid);
-			status = myGrid->addOrg(newAntPos.r, newAntPos.c, babyAnt, babyAnt->isPrey());
+			status = myGrid->addOrg(newAntPos.r, newAntPos.c, babyAnt);
 			if(status){
 				row = newAntPos.r;
 				col = newAntPos.c;
@@ -156,12 +155,11 @@ int Ant::findNeighbors() {
 	return neighborCount;
 }
 
-
 /**
  * destructor for the ant
  */
 Ant::~Ant() {
-	myGrid = 0;//mygrid points to the master grid, do not want to free!!!!!
-
+	myGrid = nullptr;//mygrid points to the master grid, do not want to free!!!!!
+    //TODO: Free all children spawned from breeding
 }
 

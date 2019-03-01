@@ -9,8 +9,9 @@
 #define DOODLEBUG_H_
 
 #include "Grid.h"
-
 #include "Organism.h"
+
+class Grid;
 
 class Doodlebug: public Organism {
 private:
