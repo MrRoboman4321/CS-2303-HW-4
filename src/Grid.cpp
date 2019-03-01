@@ -153,12 +153,15 @@ Grid::~Grid() {
 //		free(grid[i]);
 //	}
 
-	for(Ant *ant : ants) {
-		delete ant;
-	}
+//	for(Ant *ant : ants) {
+//		delete ant;
+//	}
+//
+//	for(Doodlebug *doodlebug : doodlebugs) {
+//		delete doodlebug;
+//	}
 
-	for(Doodlebug *doodlebug : doodlebugs) {
-		delete doodlebug;
-	}
+	ants.clear();
+	doodlebugs.clear();
 }
 
