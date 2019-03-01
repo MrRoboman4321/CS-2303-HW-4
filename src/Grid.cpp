@@ -9,43 +9,78 @@
 #include <iomanip>
 #include "Grid.h"
 
-int n=0; //this initial value will be changed when the program is invoked
-Cell** myGridCells_ptr_array = (Cell**)nullptr;
+int n = 0; //this initial value will be changed when the program is invoked
 
-Grid::Grid() {
-	// TODO Auto-generated constructor stub
-	Grid(10); //calls general constructor with default value
+Grid::Grid(int n) {
+	side_length = n;
+
+    grid = (Organism ***) calloc((size_t) n, sizeof(Organism **));
+
+    for(int i = 0; i < n; i++) {
+        grid[i] = (Organism **) calloc((size_t) n, sizeof(Organism *));
+    }
 }
 
-Grid::Grid(int nSquaresOnASide) {
-	n = nSquaresOnASide; //initialize size of grid
-	//we do not want automatic storage for the grid
+bool Grid::setCellOccupant(int r, int c, Organism *o) {
+	if(grid[r][c] != nullptr) {
+		return false;
+	}
 
-	myGridCells_ptr_array = new Cell* [n];  //first allocate array of row pointers
+	grid[r][c] = o;
 
-	for(int i=0 ; i < n ; i++) {
-		myGridCells_ptr_array[i] = new Cell[n]; // allocate memory for columns in each row
+	return true;
+}
+
+Organism *Grid::getCellOccupant(int r, int c) {
+	return grid[r][c];
+}
+
+bool Grid::moveOrganism(int r, int c, Organism *o) {
+	//If the spot is already taken, the organism cannot move there
+	if(grid[r][c] == nullptr) {
+		return false;
+	}
+
+	//Search through all cells
+	for(int i = 0; i < side_length; i++) {
+		for(int j = 0; j < side_length; j++) {
+
+			//If we find the cell where the organism is
+			if(grid[i][j] == o) {
+
+				//Remove it from its old spot
+				grid[i][j] = nullptr;
+
+				//Move to the new spot
+				grid[r][c] = o;
+			}
+		}
 	}
 }
 
-bool Grid::setCellOccupant(int r, int c, occupationStatus g) {
-	return myGridCells_ptr_array[r][c].setOccupant(g);
-}
-
-occupationStatus Grid::getCellOccupant(int r, int c) {
-	return myGridCells_ptr_array[r][c].getOccupant();
+void Grid::printGrid() {
+	for(int r = 0; r < side_length; r++) {
+		for(int c = 0; c < side_length; c++) {
+			if(grid[r][c] != nullptr) {
+				if(grid[r][c]->isPrey()) {
+					printf("o");
+				} else {
+					printf("x");
+				}
+			} else {
+				printf(" ");
+			}
+		}
+		printf("\n");
+	}
 }
 
 Grid::~Grid() {
-
-	for(int r=0; r < n; r++)
-	{
-		for(int c=0; c < n; c++)
-		{
-			//cout << "Before freeing" << r << c << endl;
-			myGridCells_ptr_array[r][c].~Cell(); // free memory for columns in each row
+	for(int i = 0; i < side_length; i++) {
+		for(int j = 0; j < side_length; j++) {
+			delete grid[i][j];
 		}
+		free(grid[i]);
 	}
-	//myGridCells_ptr_array = (Cell**)nullptr;
 }
 
