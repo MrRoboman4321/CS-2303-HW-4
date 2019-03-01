@@ -145,7 +145,9 @@ void Grid::printGrid() {
 Grid::~Grid() {
 	for(int i = 0; i < side_length; i++) {
 		for(int j = 0; j < side_length; j++) {
-			delete grid[i][j];
+			if(grid[i][j] != nullptr) {
+				delete grid[i][j];
+			}
 		}
 		free(grid[i]);
 	}

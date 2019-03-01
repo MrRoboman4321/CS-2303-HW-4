@@ -1,1 +1,3 @@
-CS-2303-HW-4
+Authors: Filip Kernan, Eli Benevedes
+
+To run: ./AntsAndDoodles gridsize #doodlebugs #ants #time_steps seed pause
