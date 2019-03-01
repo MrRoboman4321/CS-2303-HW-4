@@ -15,6 +15,10 @@
 class Organism {
 protected:
 
+	struct Pos{
+		int r;
+		int c;
+	};
 	enum direction{
 		Up,
 		Right,
@@ -23,11 +27,19 @@ protected:
 	};
 	int stepsSinceLastBreed = 0;
 	int row = 0;
+	int stepsTillBreed;
+public:
+	int getRow() const;
+
+	int getCol() const;
+
+protected:
 	int col = 0;
 
-	int neighbors[4];
+	Organism* neighbors[4];
 	void clearNeighbors();
-	int findNeighbors();
+	virtual int findNeighbors() = 0;
+	Pos gridPosGivenMoveOption(direction o);
 
 public:
 	Organism();
@@ -35,8 +47,10 @@ public:
 
 	bool isPrey();
 
+	Pos whereToMove();
+
 	virtual bool move() = 0;
-	virtual bool breed() = 0;
+	virtual bool breed();
 
 	void setAmAnt(bool b);
 

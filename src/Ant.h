@@ -15,11 +15,8 @@
 class Ant: public Organism {
 private:
 	Grid* myGrid;
-	struct Pos{
-		int r;
-		int c;
-	};
-	Pos gridPosGivenMoveOption(direction o);
+	int findNeighbors();
+
 public:
 	Ant();
 	Ant(int r, int c, Grid* grid);

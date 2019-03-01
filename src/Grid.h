@@ -20,8 +20,8 @@ public:
 
 	bool setCellOccupant(int r, int c, Organism* g);
 	Organism *getCellOccupant(int r, int c);
-
-
+	bool addOrg(int r, int c, Organism* org, bool isAnt);//added because we will need to keep track of all orgs in grid
+	bool removeOrg(int r, int c, Organism* org);
 
 	void printGrid();
 
