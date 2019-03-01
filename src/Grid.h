@@ -21,7 +21,7 @@ public:
 	bool setCellOccupant(int r, int c, Organism* g);
 	Organism *getCellOccupant(int r, int c);
 
-	bool moveOrganism(Organism *g, int r, int c);
+	
 
 	void printGrid();
 
