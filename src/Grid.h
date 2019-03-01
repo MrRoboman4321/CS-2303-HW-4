@@ -12,16 +12,18 @@
 
 class Grid {
 private:
-	Organism **grid;
+	Organism ***grid;
+
+	int side_length;
 
 public:
-	Grid();
-	Grid(int nSquaresOnASide);
+	Grid(): Grid(20){};
+	explicit Grid(int n);
 
-	bool setCellOccupant(int r, int c, Organism* g);
+	bool setCellOccupant(int r, int c, Organism *o);
 	Organism *getCellOccupant(int r, int c);
 
-	bool moveOrganism(Organism *g, int r, int c);
+	bool moveOrganism(int r, int c, Organism *o);
 
 	void printGrid();
 
