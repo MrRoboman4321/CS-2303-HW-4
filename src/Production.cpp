@@ -44,6 +44,8 @@ bool Production::runProduction()
 		grid->tick();
 		if(pause > 0 && i % pause == 0) {
 			grid->printGrid();
+		} else {
+			grid->printGrid();
 		}
 	}
 

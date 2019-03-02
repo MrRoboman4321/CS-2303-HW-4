@@ -43,10 +43,10 @@ bool Tests2::doTests()
 	//see whether they die
 	bool ok10 = doodleDietest();
 
-
 	bool ok12 = gridAddTest();
 	bool ok13 = gridMoveTest();
 	bool ok14 = gridRemoveTest();
+
 	results = ok1 && ok3 && ok4 && ok7 && ok8 && ok9 && ok10 && ok12 && ok13 && ok14;
 
 	delete grid;
@@ -82,7 +82,6 @@ bool Tests2::gridTest()
 
 bool Tests2::antsMoveTest()
 {
-
 	std::cout << "Running the move ants test" << std::endl;
 	Ant* ant = new Ant(3,3,grid);
 	grid->addOrg(3,3, ant);
@@ -140,20 +139,27 @@ bool Tests2::doodleBreedTest()
 	std::vector<Ant *> ants;
 
 	std::cout << "Running the breed doodlebugs test" << std::endl;
-	for (int i = 0; i < 6; ++i) {
-		for (int j = 0; j < 5; ++j) {
+	for (int i = 0; i < 20; ++i) {
+		for (int j = 0; j < 19; ++j) {
 			Ant *ant = new Ant(i, j, grid);
 
 			ants.push_back(ant);
 			grid->addOrg(i,j, ant);
 		}
 	}
-	Doodlebug* bug = new Doodlebug(5,5,grid);
-	grid->addOrg(5,5, bug);
+
+
+	Doodlebug* bug = new Doodlebug(19,19,grid);
+	grid->addOrg(19,19, bug);
+
+	for(int i = 0; i < 10; i++) {
+		bug->tick();
+	}
+
 
 	int doodlebugCount = 0;
-	for (int i = 0; i < 6; ++i) {
-		for (int j = 0; j < 6; ++j) {
+	for (int i = 0; i < 20; ++i) {
+		for (int j = 0; j < 20; ++j) {
 			Organism* org = grid->getCellOccupant(i,j);
 			if(org != nullptr && !org->isPrey()){
 				doodlebugCount++;
@@ -235,7 +241,9 @@ bool Tests2::gridMoveTest() {
 	grid->addOrg(5, 5, ant);
 	grid->moveOrganism(10, 10, ant);
 
-	bool result = grid->getCellOccupant(10, 10) == ant;
+	Organism *occupant = grid->getCellOccupant(10, 10);
+
+	bool result = occupant == ant;
 
 	grid->clearBoard();
 	delete ant;
