@@ -195,21 +195,33 @@ bool Doodlebug::isStarving() {
 int Doodlebug::findNeighbors() {
 	//first element is pointer to what is above, goes around clockwise from there
 	int neighborCount = 0;
-	if(myGrid->getCellOccupant(this->row - 1, this->col) != nullptr){
+	if(myGrid->getCellOccupant(this->row - 1, this->col) != nullptr && this->row - 1 > 0 &&
+	this->row -1 < myGrid.getSideLenght()){
 		neighborCount++;
 		neighbors[0] = myGrid->getCellOccupant(this->row - 1, this->col);
+	}else{
+		neighbors[0] = (Organism*)0x100;
 	}
-	if(myGrid->getCellOccupant(this->row, this->col + 1) != nullptr){
+	if(myGrid->getCellOccupant(this->row, this->col + 1) != nullptr && this->col + 1 > 0 &&
+	   this->col + 1 < myGrid.getSideLenght()) {
 		neighborCount++;
 		neighbors[1] = myGrid->getCellOccupant(this->row, this->col + 1);
+	} else{
+		neighbors[1] = (Organism*)0x10000000;
 	}
-	if(myGrid->getCellOccupant(this->row + 1, this->col) != nullptr){
+	if(myGrid->getCellOccupant(this->row + 1, this->col) != nullptr && this->row + 1 > 0 &&
+	   this->row +1 < myGrid.getSideLenght()){
 		neighborCount++;
 		neighbors[2] = myGrid->getCellOccupant(this->row + 1, this->col);
+	}else{
+		neighbors[2] = (Organism*)0x100;
 	}
-	if(myGrid->getCellOccupant(this->row, this->col - 1) != nullptr){
+	if(myGrid->getCellOccupant(this->row, this->col - 1) != nullptr && this->col - 1 > 0 &&
+	   this->col -1 < myGrid.getSideLenght()){
 		neighborCount++;
 		neighbors[3] = myGrid->getCellOccupant(this->row, this->col - 1);
+	}else{
+		neighbors[0] = (Organism*)0x100;
 	}
 	return neighborCount;
 }
