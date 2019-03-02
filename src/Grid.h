@@ -40,6 +40,8 @@ public:
 
 	bool moveOrganism(int r, int c, Organism *o);
 
+	int getSideLength();
+
     void tick();
 
 	void printGrid();
