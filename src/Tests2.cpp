@@ -48,6 +48,9 @@ bool Tests2::doTests()
 	bool ok13 = gridMoveTest();
 	bool ok14 = gridRemoveTest();
 	results = ok1 && ok3 && ok4 && ok7 && ok8 && ok9 && ok10 && ok12 && ok13 && ok14;
+
+	delete grid;
+
 	return results;
 }
 bool Tests2::gridTest()
@@ -248,7 +251,6 @@ bool Tests2::gridRemoveTest() {
 	bool result = grid->getCellOccupant(5, 5) == nullptr;
 
 	grid->clearBoard();
-	delete ant;
 
 	return result;
 }

@@ -78,7 +78,7 @@ bool Doodlebug::move()
 		int preyChoice = rand() % preyCount;//takes care of the condition if there is one prey, x%1 == 0
 		nextPos.c = prey[preyChoice]->getCol();
 		nextPos.r = prey[preyChoice]->getRow();
-		bool hasEaten = eat(prey[1], myGrid);
+		bool hasEaten = eat(prey[preyChoice], myGrid);
 		//updates steosSinceLastFood
 		if(hasEaten){
 			stepsSinceLastFood = 0;
