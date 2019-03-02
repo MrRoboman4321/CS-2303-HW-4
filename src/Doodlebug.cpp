@@ -35,9 +35,10 @@ Doodlebug::Doodlebug(int r, int c, Grid* grid)
 void Doodlebug::tick() {//TODO do we want to put this here?
 	move();
 
-	starve();
+
 
 	breed();
+	starve();
 
 }
 
@@ -64,6 +65,7 @@ bool Doodlebug::move()
 	clearNeighbors();
 	Organism* prey[4];//set up for move
 	int preyCount = 0;
+	bool hasEaten = false;
 	if(findNeighbors() > 0){
 		for (int i = 0, j = 0; i < 4; ++i) {
 			if(neighbors[i] != 0 && neighbors[i]->isPrey()){// if you find prey in the neighbors, keep track of them
@@ -78,13 +80,9 @@ bool Doodlebug::move()
 		int preyChoice = rand() % preyCount;//takes care of the condition if there is one prey, x%1 == 0
 		nextPos.c = prey[preyChoice]->getCol();
 		nextPos.r = prey[preyChoice]->getRow();
-		bool hasEaten = eat(prey[preyChoice], myGrid);
+		 hasEaten= eat(prey[preyChoice], myGrid);
 		//updates steosSinceLastFood
-		if(hasEaten){
-			stepsSinceLastFood = 0;
-		}else{
-			stepsSinceLastFood++;
-		}
+
 
 
 	}else{//falls back on organism whereToMOve
@@ -101,7 +99,11 @@ bool Doodlebug::move()
 	}
 	stepsSinceLastBreed++;
 
-
+	if(hasEaten){
+		stepsSinceLastFood = 0;
+	}else{
+		stepsSinceLastFood++;
+	}
 
 	return status;
 }

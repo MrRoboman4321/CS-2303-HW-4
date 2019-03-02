@@ -135,7 +135,7 @@ bool Tests2::doodleMoveTest()
 }
 bool Tests2::doodleBreedTest()
 {
-	bool result = true;
+
 
 	std::vector<Ant *> ants;
 
@@ -150,6 +150,7 @@ bool Tests2::doodleBreedTest()
 	}
 	Doodlebug* bug = new Doodlebug(5,5,grid);
 	grid->addOrg(5,5, bug);
+
 	int doodlebugCount = 0;
 	for (int i = 0; i < 6; ++i) {
 		for (int j = 0; j < 6; ++j) {

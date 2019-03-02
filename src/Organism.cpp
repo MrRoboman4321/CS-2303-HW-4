@@ -44,7 +44,8 @@ Organism::Pos Organism::whereToMove() {
 	bool status = true;
 	clearNeighbors();
 	Pos nextPostion;
-
+	nextPostion.c = col;
+	nextPostion.r = row;
 	int optionCount = findNeighbors();
 	direction options[optionCount];
 	for (int i = 0, written = 0; i < 4; ++i) {//writes to which grid spaces are move options
@@ -64,7 +65,7 @@ Organism::Pos Organism::whereToMove() {
 			}
 		}
 	}
-	if(optionCount != 0){
+	if(optionCount == 0){
 		if(optionCount > 1){//if more than one option will randomly select an option
 			nextPostion = gridPosGivenMoveOption(options[rand()%optionCount]);
 		}else{//there is only one move option so it will move there
