@@ -67,24 +67,6 @@ bool Grid::removeOrg(int r, int c) {
 	grid[r][c] = nullptr;
 }
 
-bool Grid::removeOrg(Organism *o) {
-	for(int r = 0; r < side_length; r++) {
-		for(int c = 0; c < side_length; c++) {
-			if(grid[r][c] == o) {
-				if(grid[r][c]->isPrey()) {
-					ants.erase(std::remove(ants.begin(), ants.end(), o), ants.end());
-				} else {
-					doodlebugs.erase(std::remove(doodlebugs.begin(), doodlebugs.end(), o), doodlebugs.end());
-				}
-
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
 void Grid::clearBoard() {
 	for(int r = 0; r < side_length; r++) {
 		for(int c = 0; c < side_length; c++) {
@@ -103,6 +85,10 @@ void Grid::clearBoard() {
  * @return pointer to the organism. If there was no organism present, nullptr
  */
 Organism *Grid::getCellOccupant(int r, int c) {
+	if(r >= side_length || r < 0 || c >= side_length || c < 0) {
+		return nullptr;
+	}
+
 	return grid[r][c];
 }
 
@@ -115,7 +101,7 @@ Organism *Grid::getCellOccupant(int r, int c) {
  */
 bool Grid::moveOrganism(int r, int c, Organism *o) {
 	//If the spot is already taken, the organism cannot move there
-	if(grid[r][c] == nullptr) {
+	if(grid[r][c] != nullptr) {
 		return false;
 	}
 
