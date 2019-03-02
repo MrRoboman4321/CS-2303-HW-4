@@ -79,7 +79,7 @@ bool Ant::breed()
 		int optionCount = findNeighbors();
 		direction birthOptions[optionCount];
 		for (int i = 0, written = 0; i < 4; ++i) {//writes to which grid spaces are move options
-			if(neighbors[i] == nullptr){
+			if(neighbors[i].isValid && neighbors[i].org == nullptr){
 				if(i == 0){
 					birthOptions[written] = Up;
 					written++;
@@ -134,21 +134,37 @@ bool Ant::isPrey() {
 int Ant::findNeighbors() {
 	//first element is pointer to what is above, goes around clockwise from there
 	int neighborCount = 0;
-	if(myGrid->getCellOccupant(this->row - 1, this->col) != nullptr){
-			neighborCount++;
-			neighbors[0] = myGrid->getCellOccupant(this->row - 1, this->col);
-	}
-	if(myGrid->getCellOccupant(this->row, this->col + 1) != nullptr){
+	if(myGrid->getCellOccupant(this->row - 1, this->col) != nullptr && this->row - 1 > 0 &&
+	   this->row -1 < myGrid->getSideLength()){
 		neighborCount++;
-		neighbors[1] = myGrid->getCellOccupant(this->row, this->col + 1);
+		neighbors[0].isValid = true;
+		neighbors[0].org = myGrid->getCellOccupant(this->row - 1, this->col);
+	}else{
+		neighbors[0].isValid = false;
 	}
-	if(myGrid->getCellOccupant(this->row + 1, this->col) != nullptr){
+	if(myGrid->getCellOccupant(this->row, this->col + 1) != nullptr && this->col + 1 > 0 &&
+	   this->col + 1 < myGrid->getSideLength()) {
 		neighborCount++;
-		neighbors[2] = myGrid->getCellOccupant(this->row + 1, this->col);
+		neighbors[1].isValid = true;
+		neighbors[1].org = myGrid->getCellOccupant(this->row, this->col + 1);
+	} else{
+		neighbors[1].isValid = false;;
 	}
-	if(myGrid->getCellOccupant(this->row, this->col - 1) != nullptr){
+	if(myGrid->getCellOccupant(this->row + 1, this->col) != nullptr && this->row + 1 > 0 &&
+	   this->row +1 < myGrid->getSideLength()){
 		neighborCount++;
-		neighbors[3] = myGrid->getCellOccupant(this->row, this->col - 1);
+		neighbors[2].isValid = true;
+		neighbors[2].org = myGrid->getCellOccupant(this->row + 1, this->col);
+	}else{
+		neighbors[2].isValid = false;
+	}
+	if(myGrid->getCellOccupant(this->row, this->col - 1) != nullptr && this->col - 1 > 0 &&
+	   this->col -1 < myGrid->getSideLength()){
+		neighborCount++;
+		neighbors[3].isValid = true;
+		neighbors[3].org = myGrid->getCellOccupant(this->row, this->col - 1);
+	}else{
+		neighbors[3].isValid = false;
 	}
 	return neighborCount;
 }

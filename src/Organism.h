@@ -25,12 +25,17 @@ protected:
 		Down,
 		Left
 	};
+
+	struct neighbor{
+		Organism* org;
+		bool isValid;
+	};
 	int stepsSinceLastBreed = 0;
 	int row = 0;
 	int stepsTillBreed;
 	int col = 0;
 
-	Organism* neighbors[4];
+	neighbor neighbors[4];
 	void clearNeighbors();
 	virtual int findNeighbors() = 0;
 	Pos gridPosGivenMoveOption(direction o);

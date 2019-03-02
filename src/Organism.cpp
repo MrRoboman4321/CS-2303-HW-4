@@ -49,7 +49,7 @@ Organism::Pos Organism::whereToMove() {
 	int optionCount = findNeighbors();
 	direction options[optionCount];
 	for (int i = 0, written = 0; i < 4; ++i) {//writes to which grid spaces are move options
-		if(neighbors[i] == 0){
+		if(neighbors[i].isValid && neighbors[i].org == 0 ){
 			if(i == 0){
 				options[written] = Up;
 				written++;
@@ -117,7 +117,8 @@ Organism::Pos Organism::gridPosGivenMoveOption(Organism::direction o) {
  */
 void Organism::clearNeighbors() {
 	for (int i = 0; i < 4; ++i) {//cleans the moveOptions array
-		neighbors[i] = nullptr;
+		neighbors[i].org = nullptr;
+		neighbors[i].isValid = false;
 	}
 }
 

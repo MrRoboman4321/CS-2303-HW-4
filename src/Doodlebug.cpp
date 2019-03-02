@@ -68,8 +68,11 @@ bool Doodlebug::move()
 	bool hasEaten = false;
 	if(findNeighbors() > 0){
 		for (int i = 0, j = 0; i < 4; ++i) {
-			if(neighbors[i] != 0 && neighbors[i]->isPrey()){// if you find prey in the neighbors, keep track of them
-				prey[j] = neighbors[i];
+
+
+			if(( neighbors[i].isValid && neighbors[i].org != nullptr)&& neighbors[i].org->isPrey()){
+				// if you find prey in the neighbors, keep track of them
+				prey[j] = neighbors[i].org;
 				j++;
 				preyCount++;
 			}
@@ -121,7 +124,7 @@ bool Doodlebug::breed()
 		int optionCount = findNeighbors();
 		direction birthOptions[optionCount];
 		for (int i = 0, written = 0; i < 4; ++i) {//writes to which grid spaces are move options
-			if(neighbors[i] == 0){
+			if(neighbors[i].isValid && neighbors[i].org == 0){
 				if(i == 0){
 					birthOptions[written] = Up;
 					written++;
@@ -196,32 +199,36 @@ int Doodlebug::findNeighbors() {
 	//first element is pointer to what is above, goes around clockwise from there
 	int neighborCount = 0;
 	if(myGrid->getCellOccupant(this->row - 1, this->col) != nullptr && this->row - 1 > 0 &&
-	this->row -1 < myGrid.getSideLenght()){
+	this->row -1 < myGrid->getSideLength()){
 		neighborCount++;
-		neighbors[0] = myGrid->getCellOccupant(this->row - 1, this->col);
+		neighbors[0].isValid = true;
+		neighbors[0].org = myGrid->getCellOccupant(this->row - 1, this->col);
 	}else{
-		neighbors[0] = (Organism*)0x100;
+		neighbors[0].isValid = false;
 	}
 	if(myGrid->getCellOccupant(this->row, this->col + 1) != nullptr && this->col + 1 > 0 &&
-	   this->col + 1 < myGrid.getSideLenght()) {
+	   this->col + 1 < myGrid->getSideLength()) {
 		neighborCount++;
-		neighbors[1] = myGrid->getCellOccupant(this->row, this->col + 1);
+		neighbors[1].isValid = true;
+		neighbors[1].org = myGrid->getCellOccupant(this->row, this->col + 1);
 	} else{
-		neighbors[1] = (Organism*)0x10000000;
+		neighbors[1].isValid = false;;
 	}
 	if(myGrid->getCellOccupant(this->row + 1, this->col) != nullptr && this->row + 1 > 0 &&
-	   this->row +1 < myGrid.getSideLenght()){
+	   this->row +1 < myGrid->getSideLength()){
 		neighborCount++;
-		neighbors[2] = myGrid->getCellOccupant(this->row + 1, this->col);
+		neighbors[2].isValid = true;
+		neighbors[2].org = myGrid->getCellOccupant(this->row + 1, this->col);
 	}else{
-		neighbors[2] = (Organism*)0x100;
+		neighbors[2].isValid = false;
 	}
 	if(myGrid->getCellOccupant(this->row, this->col - 1) != nullptr && this->col - 1 > 0 &&
-	   this->col -1 < myGrid.getSideLenght()){
+	   this->col -1 < myGrid->getSideLength()){
 		neighborCount++;
-		neighbors[3] = myGrid->getCellOccupant(this->row, this->col - 1);
+		neighbors[3].isValid = true;
+		neighbors[3].org = myGrid->getCellOccupant(this->row, this->col - 1);
 	}else{
-		neighbors[0] = (Organism*)0x100;
+		neighbors[3].isValid = false;
 	}
 	return neighborCount;
 }
