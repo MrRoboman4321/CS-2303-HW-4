@@ -122,6 +122,10 @@ bool Grid::moveOrganism(int r, int c, Organism *o) {
 	}
 }
 
+int Grid::getSideLength() {
+	return side_length;
+}
+
 /**
  * Updates the state of all organisms currently on the board.
  */
