@@ -8,16 +8,18 @@
 #ifndef TESTS2_H_
 #define TESTS2_H_
 
+#include "Grid.h"
+
 class Tests2 {
+private:
+	Grid *grid;
 public:
 	Tests2();
 	bool doTests();
 	bool gridTest();
-	bool makeAntsTest();
 	bool antsMoveTest();
 	bool antsBreedTest();
 	bool antsDieTest();
-	bool makeDoodlesTest();
 	bool doodleMoveTest();
 	bool doodleBreedTest();
 	bool doodleEatTest();

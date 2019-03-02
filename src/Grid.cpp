@@ -67,6 +67,35 @@ bool Grid::removeOrg(int r, int c) {
 	grid[r][c] = nullptr;
 }
 
+bool Grid::removeOrg(Organism *o) {
+	for(int r = 0; r < side_length; r++) {
+		for(int c = 0; c < side_length; c++) {
+			if(grid[r][c] == o) {
+				if(grid[r][c]->isPrey()) {
+					ants.erase(std::remove(ants.begin(), ants.end(), o), ants.end());
+				} else {
+					doodlebugs.erase(std::remove(doodlebugs.begin(), doodlebugs.end(), o), doodlebugs.end());
+				}
+
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+void Grid::clearBoard() {
+	for(int r = 0; r < side_length; r++) {
+		for(int c = 0; c < side_length; c++) {
+			grid[r][c] = nullptr;
+		}
+	}
+
+	ants.clear();
+	doodlebugs.clear();
+}
+
 /**
  * Returns the organism pointed to at grid[r][c]
  * @param r row to get from

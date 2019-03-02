@@ -35,16 +35,6 @@ bool Organism::isPrey()
 }
 
 /**
- * sets the value of amAnt
- * @param b whether or not it is an ant
- */
-void Organism::setAmAnt(bool b)
-{
-	amAnt = b;
-}
-
-
-/**
  * detertmains the next place to move if following the default move instuctions
  * those instuction being, find an empty spot and move to it, if there is more than one
  * chose randomly

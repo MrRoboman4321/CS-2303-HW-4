@@ -40,9 +40,9 @@ public:
 	int getCol() const;
 
 	Organism();
-	Organism(bool b);
+	explicit Organism(bool b);
 
-	bool isPrey();
+	virtual bool isPrey();
 
 	Pos whereToMove();
 
@@ -50,8 +50,6 @@ public:
 	virtual bool breed() = 0;
 
 	virtual void tick() = 0;
-
-	void setAmAnt(bool b);
 
 	virtual ~Organism();
 };

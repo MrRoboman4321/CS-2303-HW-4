@@ -34,6 +34,9 @@ public:
 
 	bool addOrg(int r, int c, Organism *org); //added because we will need to keep track of all orgs in grid
 	bool removeOrg(int r, int c);
+	bool removeOrg(Organism *org);
+
+	void clearBoard();
 
 	bool moveOrganism(int r, int c, Organism *o);
 
